@@ -3,6 +3,7 @@
 namespace Analysis\Command;
 
 
+use Analysis\SyntaxGraph;
 use Analysis\TypeInference;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
@@ -34,7 +35,8 @@ class TypesCommand extends Command
             if(preg_match('/^.*\.php$/', $name)) {
                 $fileContent = file_get_contents($name);
                 $ast = $parser->parse($fileContent);
-                echo(TypeInference::infer($ast)->toString());
+//                echo(TypeInference::infer($ast)->toString());
+                SyntaxGraph::build($ast)->produceConstraints()->print();
             }
         }
     }

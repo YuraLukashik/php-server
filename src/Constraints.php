@@ -17,6 +17,14 @@ class Constraints
         $this->constraints = $constraints;
     }
 
+    public function and(Constraints $constraints)
+    {
+        return new Constraints(array_merge(
+            $this->constraints,
+            $constraints->constraints
+        ));
+    }
+
     public static function single(Constraint $constraint)
     {
         return new self([$constraint]);
@@ -35,10 +43,10 @@ class Constraints
 
     public function toString(): string
     {
-        return join('&', array_map(
+        return '('.join('&', array_map(
             function (Constraint $constraint) {
                 return $constraint->name();
             }, $this->constraints
-        ));
+        )).')';
     }
 }
