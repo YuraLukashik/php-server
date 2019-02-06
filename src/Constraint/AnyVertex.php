@@ -31,18 +31,14 @@ class AnyVertex implements Vertex
         $this->constraints = new Constraints([]);
     }
 
-    public function applyConstraints(Constraints $constraints)
+    public function applyConstraints(Vertex $source, Constraints $constraints)
     {
-        if (in_array($constraints, $this->appliedConstraints)) {
-            return;
-        }
-        $this->appliedConstraints[] = $constraints;
         $this->constraints = $this->constraints->and($constraints);
     }
 
     public function produceConstraints(): Vertex
     {
-        $this->applyConstraints($this->constraints());
+        $this->applyConstraints($this, $this->constraints());
         foreach ($this->children as $child) {
             $child->produceConstraints();
         }

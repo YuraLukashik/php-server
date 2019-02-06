@@ -13,7 +13,7 @@ interface Vertex
 
     public function produceConstraints(): Vertex;
 
-    public function applyConstraints(Constraints $constraints);
+    public function applyConstraints(Vertex $source, Constraints $constraints);
 
     public function constraints(): Constraints;
 }

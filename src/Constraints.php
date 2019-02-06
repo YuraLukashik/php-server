@@ -17,6 +17,11 @@ class Constraints
         $this->constraints = $constraints;
     }
 
+    public static function any()
+    {
+        return new static([]);
+    }
+
     public function and(Constraints $constraints)
     {
         return new Constraints(array_merge(

@@ -3,6 +3,7 @@
 namespace Analysis\Command;
 
 
+use Analysis\Scope;
 use Analysis\SyntaxGraph;
 use Analysis\TypeInference;
 use PhpParser\NodeTraverser;
@@ -36,7 +37,10 @@ class TypesCommand extends Command
                 $fileContent = file_get_contents($name);
                 $ast = $parser->parse($fileContent);
 //                echo(TypeInference::infer($ast)->toString());
-                SyntaxGraph::build($ast)->produceConstraints()->print();
+                $scope= new Scope();
+                $graph = SyntaxGraph::build($ast, $scope)->produceConstraints();
+                $graph->print();
+                dump($scope->toString());
             }
         }
     }

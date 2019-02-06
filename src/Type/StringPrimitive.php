@@ -3,7 +3,7 @@
 namespace Analysis\Type;
 
 
-class StringPrimitive implements Primitive
+class StringPrimitive extends Primitive
 {
     public function name(): string
     {
